@@ -21,7 +21,7 @@ const axios = require('axios');
 const { GITHUB_TOKEN } = process.env; // Generate yours: https://github.com/settings/tokens/new (must have repo scope)
 const [ REPOSITORY_OWNER, REPOSITORY_NAME, BRANCH_NAME ] = process.argv.slice(2);
 
-const MODES = { FILE: '100644', FOLDER: '040000' };
+const MODE = { FILE: '100644', FOLDER: '040000' };
 const TYPE = { BLOB: 'blob', TREE: 'tree' };
 
 const FILES_TO_COMMIT = [
@@ -71,8 +71,8 @@ const main = async () => {
       tree: FILES_TO_COMMIT
         .map(({ content, path }) => (
           content
-            ? { path, content, mode: MODES.FILE, type: TYPE.BLOB } // Works for text files, utf-8 assumed
-            : { path, sha: null, mode: MODES.FILE, type: TYPE.BLOB } // If sha is null => the file gets deleted
+            ? { path, content, mode: MODE.FILE, type: TYPE.BLOB } // Works for text files, utf-8 assumed
+            : { path, sha: null, mode: MODE.FILE, type: TYPE.BLOB } // If sha is null => the file gets deleted
         )),
     },
   });
